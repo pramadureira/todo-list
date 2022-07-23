@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #efefef;
+}
+
+#app {
+    text-align: center;
+}
+
+.create-box {
+    background-color: white;
+    margin: 40px auto;
+    max-width: 500px;
+    width: 95vw;
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.447);
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.create-box input#content {
+    border: none;
+    outline: none;
+    padding-left: 1.1rem;
+    line-height: 40px;
+    max-width: 500px;
+    width: 65vw;
+    border-radius: 8px;
+    transition: 0.5s ease-in-out;
+    font-size: 16px;
+}
+
+.create-box:hover input#content::placeholder {
+    color: #70635e;
+}
+
+button#add-box-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: none;
+    margin: 0px;
+}
+
+button#add-box-button > img {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    margin: 0px 1px;
+    color: rgb(55, 0, 255);
+    opacity: 0.50;
+    filter: invert(25%) sepia(7%) saturate(19%) hue-rotate(314deg) brightness(100%) contrast(82%);
+}
+
+button#add-box-button > img:hover {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    margin: 0px 1px;
+    border-radius: 50%;
+    opacity: 1;
+    background-color: rgba(95,99,104,0.157);
+}
+
+.box-list {
+    display: inline-block;
+    column-gap: 5px;
+    columns: 5;
+}
+
+.box-list .box {
+    background-color: white;
+    width: 220px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(128, 128, 128, 0.395);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.07);
+    margin-bottom: 5px;
+    text-align: left;
+    overflow: hidden;
+    break-inside: avoid;
+}
+
+@media (max-width: 1125px) {
+    .box-list {
+        columns: 4;
+    }
+}
+
+@media (max-width: 899px) {
+    .box-list {
+        columns: 3;
+    }
+}
+
+@media (max-width: 674px) {
+    .box-list {
+        columns: 2;
+    }
+}
+
+@media (max-width: 500px) {
+    .box-list {
+        columns: 1;
+        column-gap: 0px;
+        max-width: 500px;
+        width: 96vw;
+        box-sizing: border-box;
+    }
+
+    .box-list .box {
+        margin: 0px  auto 5px auto;
+        width: 95vw;
+    }
+}
