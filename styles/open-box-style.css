@@ -1,0 +1,78 @@
+.open-box {
+    width: 70%;
+    max-width: 550px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    background-color: white;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.open-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-name {
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px 0px 10px 20px; 
+    font-size: 16px;
+    width: 67%;
+    
+    overflow: hidden;
+    white-space: hidden;
+    word-break: break-word;
+    text-overflow: ellipsis;
+}
+
+button.add-task-button, button.del-task-button  {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    
+    background-color: white;
+    border: none;
+    margin: 0px;
+}
+
+button.add-task-button > img, button.del-task-button > img {
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+    margin: 0px -12px;
+    color: rgb(55, 0, 255);
+    opacity: 0.50;
+    filter: invert(25%) sepia(7%) saturate(19%) hue-rotate(314deg) brightness(100%) contrast(82%);
+}
+
+button.add-task-button > img:hover, button.del-task-button > img:hover {
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+    margin: 0px -12px;
+    border-radius: 50%;
+    opacity: 1;
+    background-color: rgba(95,99,104,0.157);
+    cursor: pointer;
+}
+
+/* ... */
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    background-color: rgba(0,0,0, 0.4);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}

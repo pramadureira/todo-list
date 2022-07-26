@@ -56,14 +56,15 @@ button#add-box-button {
     height: 40px;
     background-color: white;
     border: none;
-    margin: 0px;
+    margin-right:4px;
 }
 
 button#add-box-button > img {
+    left: 115px;
     width: 40px;
     height: 40px;
     padding: 8px;
-    margin: 0px 1px;
+    margin: 0px 1px 0px 2px;
     color: rgb(55, 0, 255);
     opacity: 0.50;
     filter: invert(25%) sepia(7%) saturate(19%) hue-rotate(314deg) brightness(100%) contrast(82%);
@@ -73,7 +74,7 @@ button#add-box-button > img:hover {
     width: 40px;
     height: 40px;
     padding: 8px;
-    margin: 0px 1px;
+    margin: 0px 1px 0px 2px;
     border-radius: 50%;
     opacity: 1;
     background-color: rgba(95,99,104,0.157);
@@ -117,8 +118,6 @@ button#add-box-button > img:hover {
 }
 
 button.edit-box-button, button.del-box-button  {
-    padding-top: 2px;
-    padding-left: 10px;
     border-radius: 50%;
     width: 30px;
     height: 30px;

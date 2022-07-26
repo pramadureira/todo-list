@@ -72,10 +72,19 @@ function del_box() {
     }
 }
 
+function edit_box() {
+    alert('Editing!')
+}
+
 function check() {
     var del_box_button_list = document.querySelectorAll('.del-box-button')
     for (var i=0; i<del_box_button_list.length; i++) {
         del_box_button_list[i].addEventListener("click", del_box)
+    }
+
+    var edit_box_button_list = document.querySelectorAll('.edit-box-button')
+    for (var i=0; i<edit_box_button_list.length; i++) {
+        edit_box_button_list[i].addEventListener("click", edit_box)
     }
 }
 

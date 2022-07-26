@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de tarefas</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/open-box-style.css">
 
 </head>
 <body>
@@ -214,6 +215,59 @@
 </div>
          --></section>
     </main>
+
+    <div class="open-box">
+        <header class="open-box-header">
+            <h3 class="task-name">Título</h3>
+            <div class="task-menu">
+                <button class="add-task-button">
+                    <img src="images/icon-plus2.svg" alt="Add a task box">
+                </button>
+                <button class="del-task-button">
+                    <img src="images/icon-close.svg" alt="Add a task box">
+                </button>
+            </div>
+        </header>
+        <ul>
+            <li><input type="checkbox" name="" id=""> Check1
+                <div class="task-menu">
+                    <button class="add-task-button">
+                        <img src="images/icon-plus2.svg" alt="Add a task box">
+                    </button>
+                    <button class="del-task-button">
+                        <img src="images/icon-close.svg" alt="Add a task box">
+                    </button>
+                </div>
+            </li>
+
+            <li><input type="checkbox" name="" id=""> Check2
+                <div class="task-menu">
+                    <button id="add-task-button">
+                        <img src="images/icon-plus2.svg" alt="Add a task box">
+                    </button>
+                    <button id="del-box-button">
+                        <img src="images/icon-close.svg" alt="Add a task box">
+                    </button>
+                </div>
+                <ul>
+                    <li><input type="checkbox" name="" id=""> Check2.1
+                        <div class="task-menu">
+                            <button id="add-task-button">
+                                <img src="images/icon-plus.svg" alt="Add a task box">
+                            </button>
+                            <button id="del-box-button">
+                                <img src="images/icon-close.svg" alt="Add a task box">
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button class="close-box">Close</button>
+    </div>
+
+    <div id="overlay">
+    </div>
 
     <script src="script.js"></script>
 </body>
