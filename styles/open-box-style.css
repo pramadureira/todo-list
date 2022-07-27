@@ -1,26 +1,25 @@
 .open-box {
     width: 70%;
-    max-width: 550px;
+    max-width: 600px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -60%);
     background-color: white;
-    border-radius: 20px;
-    z-index: 10;
+    border-radius: 10px;
 }
 
 .open-box-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    padding-right: 10px;
 }
 
-.task-name {
+.box-name {
     font-family: 'Montserrat', sans-serif;
     padding: 15px 0px 10px 20px; 
     font-size: 16px;
-    width: 67%;
+    width: 77%;
     
     overflow: hidden;
     white-space: hidden;
@@ -52,27 +51,96 @@ button.add-task-button > img:hover, button.del-task-button > img:hover {
     width: 30px;
     height: 30px;
     padding: 8px;
-    margin: 0px -12px;
+    margin: 0 -12px;
     border-radius: 50%;
     opacity: 1;
     background-color: rgba(95,99,104,0.157);
     cursor: pointer;
 }
 
-/* ... */
-
-#overlay {
-    position: fixed;
-    opacity: 0;
-    background-color: rgba(0,0,0, 0.4);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
+ul {
+    margin: 0;
+    padding: 0;
 }
 
-#overlay.active {
+
+li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    row-gap: 0;
+}
+
+li > label {
+    width: 70%;
+    
+    overflow: hidden;
+    white-space: hidden;
+    word-break: break-word;
+    text-overflow: ellipsis;
+}
+
+.task-menu {
+    margin-left: auto;
+}
+
+li > input[type="checkbox"] {
+    margin-left: 18px;
+    margin-right: 5px;
+}
+
+.add-task {
+    background-color: white;
+    margin: 25px 20px 20px 36px;
+    width: 75%;
+    padding-left: 0.5rem;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.add-task input#box-content {
+    border: none;
+    outline: none;
+    line-height: 30px;
+    border-radius: 5px;
+    width: 100%;
+    transition: 0.5s ease-in-out;
+}
+
+
+.add-task:hover input#box-content::placeholder {
+    color: #544a46;
+}
+
+.close-box {
+    display: block;
+    float: right;
+    padding: 9px 10px;
+    margin: 0px 9px 9px 0px;
+    border: none;
+    background-color: white;
+}
+
+.close-box:hover {
+    background-color: rgba(238, 238, 238, 0.377);
+}
+
+.wrapper {
+    display: none;
+    position: fixed;
     opacity: 1;
-    pointer-events: all;
+    background-color: rgba(0,0,0, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 500px) {
+    .open-box {
+        width: 90%;
+    }
 }

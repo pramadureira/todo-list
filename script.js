@@ -1,5 +1,6 @@
 const boxList = document.querySelector('section.box-list')
 const boxName = document.getElementById('content')
+const openBox = document.querySelector('.wrapper')
 
 function createBox(boxName) {
     let box = document.createElement('div')
@@ -41,7 +42,7 @@ function displayBoxes() {
         }
     }
 
-    check()
+    checkBoxes()
 }
 
 function addBox() {
@@ -73,10 +74,17 @@ function delBox() {
 }
 
 function editBox() {
-    alert('Editing!')
+    openBox.style.display = 'block'
+
+    let boxToEdit = this.parentNode.parentNode
+    //let boxName = boxToEdit.querySelector('open-box-name')
+    alert(this.innerHTML)
+    //this.innerHTML = `${boxToEdit.querySelector("h3").innerHTML}`
+    alert(boxToEdit.querySelector('h3').innerHTML)
+    
 }
 
-function check() {
+function checkBoxes() {
     let delBoxButtonList = document.querySelectorAll('.del-box-button')
     for (let i=0; i < delBoxButtonList.length; i++) {
         delBoxButtonList[i].addEventListener("click", delBox)
@@ -88,6 +96,17 @@ function check() {
     }
 }
 
+// For individual boxes:
+
+function delTask() {}
+
+
+function checkBox() {
+    let delTaskButton = document.querySelectorAll('.del-task-button')
+    for (let i=0; i < delTaskButtonList.length; i++) {
+        delTaskButtonList[i].addEventListener("click", delTask)
+    }
+}
 
 displayBoxes()
 
@@ -97,5 +116,16 @@ document.getElementById('add-box-button').addEventListener("click", addBox)
 document.getElementById('content').addEventListener("keypress", function (event) {
     if(event.key === "Enter") {
         addBox()
+    }
+})
+
+
+// Close a box
+openBox.addEventListener('click', function (event) {
+    const classNameofClickedElement = event.target.classList[0]
+    const classNames = ['close-box', 'wrapper']
+    const shouldCloseBox = classNames.some(className => className === classNameofClickedElement)
+    if (shouldCloseBox) {
+        openBox.style.display = 'none'
     }
 })
