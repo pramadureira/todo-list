@@ -1,101 +1,101 @@
-var box_list = document.querySelector('section.box-list')
-var box_name = document.getElementById('content')
+const boxList = document.querySelector('section.box-list')
+const boxName = document.getElementById('content')
 
-function create_box(box_name) {
-    var box = document.createElement('div')
+function createBox(boxName) {
+    let box = document.createElement('div')
     box.setAttribute("class", "box")
     
-    var box_menu = document.createElement('div')
-    box_menu.className = "box-menu"
+    let boxMenu = document.createElement('div')
+    boxMenu.className = "box-menu"
 
-    var buttons = `<button class="edit-box-button">
+    let buttons = `<button class="edit-box-button">
                         <img src="images/icon-pen.svg" alt="Add a task box">
                     </button>
                     <button class="del-box-button">
                         <img src="images/icon-close.svg" alt="Add a task box">
                     </button>`
 
-    box_menu.innerHTML = `<h3>${box_name}</h3>`
-    box_menu.innerHTML += buttons
-    box.appendChild(box_menu)
+    boxMenu.innerHTML = `<h3>${boxName}</h3>`
+    boxMenu.innerHTML += buttons
+    box.appendChild(boxMenu)
 
     return box
 }
 
-function get_data() {
+function getData() {
     return (JSON.parse(localStorage.getItem('todos')) || [])
 }
 
-function update_data(todo) {
+function updateData(todo) {
     localStorage.setItem("todos", JSON.stringify(todo))
 }
 
-function show_boxes() {
-    var todo = get_data()
+function displayBoxes() {
+    let todo = getData()
 
     if (todo.length != 0) {
-        box_list.innerHTML = ""
-        for (var box_pos in todo) {
-            let box = create_box(todo[box_pos])
-            box_list.appendChild(box)
+        boxList.innerHTML = ""
+        for (var boxPos in todo) {
+            let box = createBox(todo[boxPos])
+            boxList.appendChild(box)
         }
     }
 
     check()
 }
 
-function add_box() {
-    todo = get_data()
+function addBox() {
+    let todo = getData()
     
-    if (box_name.value.length == 0 || box_name.value.length >= 50) {
-        box_name.focus()
+    if (boxName.value.length == 0 || boxName.value.length >= 50) {
+        boxName.focus()
         alert("Insira uma tarefa com pelo menos um símbolo e com menos de 50 símbolos")
     } else {
-        todo.push(box_name.value)
-        update_data(todo)
+        todo.push(boxName.value)
+        updateData(todo)
 
-        show_boxes()
+        displayBoxes()
     }
-    box_name.value = ""
+    boxName.value = ""
 }
 
-function del_box() {
-    todo = get_data()
-    var box_to_del = this.parentNode.parentNode
-    var box_name = box_to_del.querySelector("h3").innerHTML
-    var index = todo.indexOf(box_name)
+function delBox() {
+    let todo = getData()
+    let boxToDel = this.parentNode.parentNode
+    let boxName = boxToDel.querySelector("h3").innerHTML
+    let index = todo.indexOf(boxName)
     if (index != -1) {
         todo.splice(index, 1)
-        box_to_del.remove()
+        boxToDel.remove()
 
-        update_data(todo)
+        updateData(todo)
     }
 }
 
-function edit_box() {
+function editBox() {
     alert('Editing!')
 }
 
 function check() {
-    var del_box_button_list = document.querySelectorAll('.del-box-button')
-    for (var i=0; i<del_box_button_list.length; i++) {
-        del_box_button_list[i].addEventListener("click", del_box)
+    let delBoxButtonList = document.querySelectorAll('.del-box-button')
+    for (let i=0; i < delBoxButtonList.length; i++) {
+        delBoxButtonList[i].addEventListener("click", delBox)
     }
 
-    var edit_box_button_list = document.querySelectorAll('.edit-box-button')
-    for (var i=0; i<edit_box_button_list.length; i++) {
-        edit_box_button_list[i].addEventListener("click", edit_box)
+    let editBoxButtonList = document.querySelectorAll('.edit-box-button')
+    for (let i=0; i < editBoxButtonList.length; i++) {
+        editBoxButtonList[i].addEventListener("click", editBox)
     }
 }
 
 
-show_boxes()
+displayBoxes()
 
 
 // Creates a new box if either the button or "Enter" is pressed
-document.getElementById('add-box-button').onclick = add_box
+document.getElementById('add-box-button').addEventListener("click", addBox)
 document.getElementById('content').addEventListener("keypress", function (event) {
     if(event.key === "Enter") {
-        add_box()
+        addBox()
     }
 })
