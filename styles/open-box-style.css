@@ -16,6 +16,7 @@
 }
 
 .box-name {
+    margin-bottom: 5px;
     font-family: 'Montserrat', sans-serif;
     padding: 15px 0px 10px 20px; 
     font-size: 16px;
@@ -58,13 +59,13 @@ button.add-task-button > img:hover, button.del-task-button > img:hover {
     cursor: pointer;
 }
 
-ul {
+.wrapper ul {
     margin: 0;
     padding: 0;
 }
 
 
-li {
+.wrapper li {
     list-style: none;
     display: flex;
     align-items: center;
@@ -72,7 +73,7 @@ li {
     row-gap: 0;
 }
 
-li > label {
+.wrapper li > label {
     width: 70%;
     
     overflow: hidden;
@@ -85,7 +86,7 @@ li > label {
     margin-left: auto;
 }
 
-li > input[type="checkbox"] {
+.wrapper li > input[type="checkbox"] {
     margin-left: 18px;
     margin-right: 5px;
 }
