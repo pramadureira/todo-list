@@ -3,22 +3,30 @@ const boxName = document.getElementById('content')
 const openBox = document.querySelector('.wrapper')
 const openBoxName = document.getElementById('box-content')
 
+function isOnTasks(task, listTask) {
+    let flattenTasks = listTask.flat()
+    return (flattenTasks.indexOf(task) != -1)
+}
+
 function createBox(boxName) {
     let box = document.createElement('div')
     box.setAttribute("class", "box")
+
+    let boxButtonsMenu = document.createElement('div')
+    boxButtonsMenu.className = "box-buttons-menu"
     
     let boxMenu = document.createElement('div')
     boxMenu.className = "box-menu"
-
     let buttons = `<button class="edit-box-button">
-                        <img src="images/icon-pen.svg" alt="Add a task box">
+                        <img src="images/icon-pen.svg" alt="Edit a task box">
                     </button>
                     <button class="del-box-button">
-                        <img src="images/icon-close.svg" alt="Add a task box">
+                        <img src="images/icon-close.svg" alt="Delete a task box">
                     </button>`
 
+    boxButtonsMenu.innerHTML = buttons
     boxMenu.innerHTML = `<h3>${boxName}</h3>`
-    boxMenu.innerHTML += buttons
+    boxMenu.appendChild(boxButtonsMenu)
     box.appendChild(boxMenu)
     box.innerHTML += `<ul></ul>`
 
@@ -31,24 +39,6 @@ function getData() {
 
 function updateData(todo) {
     localStorage.setItem("todos", JSON.stringify(todo))
-}
-
-function format(list) {
-    list = list.flat(Infinity)
-    formattedList = []
-    for (let text in list) {
-        let code = list[text].substring(0, 5)
-        let newText = list[text].substring(5)
-        if (code == "<s01>") {
-            formattedList.push(`|_ ${newText}`)
-        } else if (code == "<sub>") {
-            formattedList.push(newText)
-        } else {
-            let num = parseInt(code.substring(2,4))
-            formattedList.push(`${' '.repeat(num)} |_ ${newText}`)
-        }
-    }
-    return formattedList.join('\n')
 }
 
 function displayBoxes() {
@@ -73,10 +63,9 @@ function displayBoxes() {
 
 function addBox() {
     let todo = getData()
-    
-    if (boxName.value.length == 0 || boxName.value.length >= 50) {
+    if (boxName.value.length == 0 || boxName.value.length >= 50 || todo.flat().indexOf(`<sub>${boxName.value}`) != -1) {
         boxName.focus()
-        alert("Insira uma tarefa com pelo menos um símbolo e com menos de 50 símbolos")
+        alert("Insira uma tarefa com pelo menos um símbolo e com menos de 50 símbolos e que não esteja já em baixo.")
     } else {
         todo.push([`<sub>${boxName.value}`])
         updateData(todo)
@@ -96,42 +85,14 @@ function delBox() {
             todo.splice(pos,1)
             boxToDel.remove()
             updateData(todo)
+            displayBoxes()
             break
         }
     }
 }
 
 function editBox() {
-    todo = getData()
-    openBox.style.display = 'block'
-    let boxToEdit = this.parentNode.parentNode
-    openBox.querySelector('h3.box-name').innerHTML = `${boxToEdit.querySelector("h3").innerHTML}`
-    for (let pos = 0; pos < todo.length; pos++) {
-        if (todo[pos][0] === `<sub>${boxToEdit.querySelector("h3").innerHTML}`) {
-            todo = todo[pos].flat()
-            break
-        }
-    }
-
-    for (let p = 1; p < todo.length; p++) {
-        let item = document.createElement('li')
-        item.className = "item"
-        item.innerHTML = `<input type="checkbox" name="" id="" class="open-box-name">${todo[p].substring(5)}`
-        let menu = document.createElement('div')
-        menu.className = "task-menu"
-        
-        let buttons = `<button class="add-task-button">
-                            <img src="images/icon-plus2.svg" alt="Add a task box">
-                        </button>
-                        <button class="del-task-button">
-                            <img src="images/icon-close.svg" alt="Add a task box">
-                        </button>`
-        
-    
-        menu.innerHTML += buttons
-        item.appendChild(menu)
-        openBox.querySelector('ul').appendChild(item)
-    }
+    displayBox(this.parentNode.parentNode)
 }
 
 function checkBoxes() {
@@ -146,12 +107,43 @@ function checkBoxes() {
     }
 }
 
-function isOnTasks(task, listTask) {
-    let flattenTasks = listTask.flat()
-    return (flattenTasks.indexOf(task) != -1)
+// For individual boxes:
+function displayBox(boxToEdit) {
+    todo = getData()
+    openBox.style.display = 'block'
+    openBox.querySelector('ul').innerHTML = ""
+    document.querySelector('body').style.overflow = 'hidden'
+    openBox.querySelector('h3.box-name').innerHTML = `${boxToEdit.querySelector("h3").innerHTML}`
+    for (let pos = 0; pos < todo.length; pos++) {
+        if (todo[pos][0] === `<sub>${boxToEdit.querySelector("h3").innerHTML}`) {
+            todo = todo[pos].flat()
+            break
+        }
+    }
+
+    for (let p = 1; p < todo.length; p++) {
+        let item = document.createElement('li')
+        item.className = "item"
+        item.innerHTML = `<input type="checkbox" name="" id="" class="open-box-name"><label>${todo[p].substring(5)}</label>`
+        let menu = document.createElement('div')
+        menu.className = "task-menu"
+        
+        let buttons = `<button class="add-subtask-button">
+                            <img src="images/icon-plus2.svg" alt="Add a subtask to a box">
+                        </button>
+                        <button class="del-task-button">
+                            <img src="images/icon-close.svg" alt="Delete a task from a box">
+                        </button>`
+        
+    
+        menu.innerHTML += buttons
+        item.appendChild(menu)
+        openBox.querySelector('ul').appendChild(item)
+    }
+
+    checkBox()
 }
 
-// For individual boxes:
 function addTasktoList(content) {
     let todo = getData()
     content[0] = `<sub>${content[0]}`
@@ -175,15 +167,11 @@ function addTasktoList(content) {
             }
         }
     }
-
     updateData(todo)
-    // Atualizar open box
-    displayBoxes()
 }
 
 function delTaskList(content) {
     let todo = getData()
-    content = content.split('-')
     content[0] = `<sub>${content[0]}`
     for (let pos = 1; pos < content.length; pos++) {
         if (pos < 10) {
@@ -215,28 +203,42 @@ function delTaskList(content) {
     updateData(todo)
 }
 
-function addTask(box) {
+function addTask(box, boxToEdit) {
     if (openBoxName.value.length == 0 || openBoxName.value.length >= 50) {
         openBoxName.focus()
         alert("erro aqui")
     } else {
         addTasktoList([box, openBoxName.value])
+        displayBoxes()
+        displayBox(boxToEdit)
     }
     openBoxName.value = ""
 }
 
-function delTask() {
-    alert(box, openBoxName.value)
+function delTask(boxToEdit) {
+    delTaskList([boxToEdit.parentNode.parentNode.querySelector("h3").innerHTML,boxToEdit.querySelector('label').innerHTML])
+    displayBoxes()
+    displayBox(boxToEdit.parentNode.parentNode)
 }
 
+function addSubTask(boxToEdit) {
+    alert('Soon...')
+}
 
 function checkBox() {
     let delTaskButtonList = document.querySelectorAll('.del-task-button')
     for (let i=0; i < delTaskButtonList.length; i++) {
-        delTaskButtonList[i].addEventListener("click", delTask)
+        delTaskButtonList[i].addEventListener("click", function (event) {
+        delTask(event.target.parentNode.parentNode.parentNode)
+        })
     }
-    
-    
+
+    let addTaskButtonList = document.querySelectorAll('.add-subtask-button')
+    for (let i=0; i < addTaskButtonList.length; i++) {
+        addTaskButtonList[i].addEventListener("click", function (event) {
+        addSubTask(event.target.parentNode.parentNode.parentNode)
+        })
+    }
 }
 
 displayBoxes()
@@ -250,6 +252,24 @@ document.getElementById('content').addEventListener("keypress", function (event)
     }
 })
 
+// Close a box
+openBox.addEventListener('click', function (event) {
+    const classNameofClickedElement = event.target.classList[0]
+    const classNames = ['close-box', 'wrapper']
+    const shouldCloseBox = classNames.some(className => className === classNameofClickedElement)
+    if (shouldCloseBox) {
+        openBox.style.display = 'none'
+        document.querySelector('body').style.overflow = 'scroll'
+    }
+})
+
+
+// Create a new task inside a box
+document.getElementById('box-content').addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        addTask(event.target.parentNode.parentNode.querySelector('h3').innerHTML,event.target.parentNode.parentNode)
+    }
+})
 
 // Close a box
 openBox.addEventListener('click', function (event) {
@@ -258,12 +278,6 @@ openBox.addEventListener('click', function (event) {
     const shouldCloseBox = classNames.some(className => className === classNameofClickedElement)
     if (shouldCloseBox) {
         openBox.style.display = 'none'
-    }
-})
-
-// Create a new task inside a box
-document.getElementById('box-content').addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        addTask(event.target.parentNode.parentNode.querySelector('h3').innerHTML)
+        document.querySelector('body').style.overflow = 'scroll'
     }
 })

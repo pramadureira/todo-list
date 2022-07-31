@@ -9,6 +9,11 @@
     border-radius: 10px;
 }
 
+.open-box > ul {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
 .open-box-header {
     display: flex;
     align-items: center;
@@ -28,7 +33,7 @@
     text-overflow: ellipsis;
 }
 
-button.add-task-button, button.del-task-button  {
+button.add-subtask-button, button.del-task-button  {
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -38,7 +43,7 @@ button.add-task-button, button.del-task-button  {
     margin: 0px;
 }
 
-button.add-task-button > img, button.del-task-button > img {
+button.add-subtask-button > img, button.del-task-button > img {
     width: 30px;
     height: 30px;
     padding: 8px;
@@ -48,7 +53,7 @@ button.add-task-button > img, button.del-task-button > img {
     filter: invert(25%) sepia(7%) saturate(19%) hue-rotate(314deg) brightness(100%) contrast(82%);
 }
 
-button.add-task-button > img:hover, button.del-task-button > img:hover {
+button.add-subtask-button > img:hover, button.del-task-button > img:hover {
     width: 30px;
     height: 30px;
     padding: 8px;
@@ -140,8 +145,29 @@ button.add-task-button > img:hover, button.del-task-button > img:hover {
     left: 0;
 }
 
+ul::-webkit-scrollbar {
+    width: 10px;
+}
+  
+ul::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+ul::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 @media (max-width: 500px) {
     .open-box {
         width: 90%;
+    }
+
+    .open-box > ul > li > label {
+        width: 50vw;
     }
 }
