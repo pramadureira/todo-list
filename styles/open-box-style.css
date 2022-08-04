@@ -43,6 +43,11 @@ button.add-subtask-button, button.del-task-button  {
     margin: 0px;
 }
 
+button.add-subtask-button {
+    /* This functionality is not currently working */
+    display: none;
+}
+
 button.add-subtask-button > img, button.del-task-button > img {
     width: 30px;
     height: 30px;
@@ -69,34 +74,34 @@ button.add-subtask-button > img:hover, button.del-task-button > img:hover {
     padding: 0;
 }
 
-
-.wrapper li {
+.wrapper ul > li {
     list-style: none;
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
     padding-right: 10px;
     row-gap: 0;
 }
 
-.wrapper li > label {
+.wrapper ul > li > label {
     width: 70%;
     
     overflow: hidden;
     white-space: hidden;
     word-break: break-word;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;    
 }
 
 .task-menu {
     margin-left: auto;
 }
 
-.wrapper li > input[type="checkbox"] {
+.wrapper ul > li > input[type="checkbox"] {
     margin-left: 18px;
     margin-right: 5px;
 }
 
-.add-task {
+.add-task, .add-subtask {
     background-color: white;
     margin: 25px 20px 20px 36px;
     width: 75%;
@@ -107,7 +112,11 @@ button.add-subtask-button > img:hover, button.del-task-button > img:hover {
     outline: none;
 }
 
-.add-task input#box-content {
+.add-subtask {
+    display: none;
+}
+
+.add-task input#box-content, .add-subtask input#subtask-box-content {
     border: none;
     outline: none;
     line-height: 30px;
@@ -117,7 +126,7 @@ button.add-subtask-button > img:hover, button.del-task-button > img:hover {
 }
 
 
-.add-task:hover input#box-content::placeholder {
+.add-task:hover input#box-content::placeholder, .add-subtask:hover input#subtask-box-content::placeholder {
     color: #544a46;
 }
 
@@ -145,20 +154,52 @@ button.add-subtask-button > img:hover, button.del-task-button > img:hover {
     left: 0;
 }
 
-ul::-webkit-scrollbar {
+.wrapper input[type="checkbox"] {
+    position: relative;
+    width: 1.3em;
+    height: 1.3em;
+    color: black;
+    border: 1px solid rgb(110, 110, 110);
+    border-radius: 3px;
+    appearance: none;
+    outline: 0;
+    cursor: pointer;
+}
+
+.wrapper input[type="checkbox"]::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0px;
+    left: 4.45px;
+    width: 4px;
+    height: 10px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+.wrapper input[type="checkbox"]:checked {
+    color: white;
+    border-color: rgb(207, 205, 205);
+    background: rgb(207, 205, 205);
+}
+
+ul.begin::-webkit-scrollbar {
     width: 10px;
 }
   
-ul::-webkit-scrollbar-thumb {
+ul.begin::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 5px;
 }
 
-ul::-webkit-scrollbar-track {
+ul.begin::-webkit-scrollbar-track {
     background: #fff;
 }
 
-ul::-webkit-scrollbar-thumb:hover {
+ul.begin::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 

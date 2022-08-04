@@ -117,14 +117,46 @@ button#add-box-button > img:hover {
 .box li > label {
     width: 90%;
     
+    position: relative;
+    padding: 0 0.25em 0;
+
     overflow: hidden;
     white-space: hidden;
     word-break: break-word;
     text-overflow: ellipsis;
 }
 
-.box li > input[type="checkbox"] {
-    margin-right: 5px;
+.box input[type="checkbox"] {
+    position: relative;
+    width: 1.15em;
+    height: 1.15em;
+    color: black;
+    border: 1px solid rgb(110, 110, 110);
+    border-radius: 3px;
+    appearance: none;
+    outline: 0;
+    cursor: pointer;
+}
+
+
+.box input[type="checkbox"]::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0px;
+    left: 4.5px;
+    width: 3px;
+    height: 8px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.box input[type="checkbox"]:checked {
+    color: white;
+    border-color: rgb(207, 205, 205);
+    background: rgb(207, 205, 205);
 }
 
 .box-list .box h3 {
@@ -214,5 +246,24 @@ button.edit-box-button > img:hover, button.del-box-button > img:hover {
 
     .box-list .box label {
         font-size: 1.4em;
+    }
+
+    .box input[type="checkbox"] {
+        width: 1.3em;
+        height: 1.3em;
+    }
+
+    .box input[type="checkbox"]::before {
+        position: absolute;
+        content: '';
+        display: block;
+        top: 0px;
+        left: 4.45px;
+        width: 4px;
+        height: 10px;
+        border-style: solid;
+        border-color: white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
     }
 }
