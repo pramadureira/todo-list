@@ -4,6 +4,7 @@ const openBox = document.querySelector('.wrapper')
 const openBoxName = document.getElementById('box-content')
 const subTaskName = document.getElementById('subtask-box-content')
 
+
 function isOnTasks(task, listTask) {
     let flattenTasks = listTask.flat()
     return (flattenTasks.indexOf(task) != -1)
